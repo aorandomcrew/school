@@ -1,6 +1,6 @@
 package ru.hogwarts.school.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.DataNotFoundException;
 import ru.hogwarts.school.model.Faculty;
@@ -8,9 +8,9 @@ import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
 
+
 @Service
 public class FacultyService {
-    @Autowired
     private final FacultyRepository facultyRepository;
 
     public FacultyService(FacultyRepository facultyRepository) {
@@ -49,5 +49,13 @@ public class FacultyService {
 
     public Collection<Faculty> getByColor(String color) {
         return facultyRepository.findAllByColor(color);
+    }
+
+    public Collection<Faculty> getByColorOrNameIgnoreCase(String color, String name){
+        return facultyRepository.findAllByColorOrNameIgnoreCase(color, name);
+    }
+
+    public Faculty findByStudentId(Long id){
+        return facultyRepository.findByStudent_Id(id).orElseThrow(DataNotFoundException::new);
     }
 }
