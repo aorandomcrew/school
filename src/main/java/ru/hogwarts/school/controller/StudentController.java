@@ -1,10 +1,7 @@
 package ru.hogwarts.school.controller;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
-
 import java.util.Collection;
 
 @RestController
@@ -42,5 +39,13 @@ public class StudentController {
         return studentService.delete(id);
     }
 
+    @GetMapping("/find-by-age-between")
+    public Collection<Student> getByColorOrName(@RequestParam("min") int min, @RequestParam("max") int max) {
+        return studentService.findByAgeBetween(min, max);
+    }
 
+    @GetMapping("/by-faculty")
+    public Student findtByFaculty(@RequestParam() Long id){
+        return studentService.findByFacultyId(id);
+    }
 }

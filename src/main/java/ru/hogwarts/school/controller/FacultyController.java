@@ -1,6 +1,6 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
@@ -39,5 +39,14 @@ public class FacultyController {
     @DeleteMapping("/{id}")
     public Faculty remove(@PathVariable("id") Long id) {
         return facultyService.delete(id);
+    }
+
+    @GetMapping("/by_color_or_name")
+    public Collection<Faculty> getByColorOrName(@RequestParam("color") String color, @RequestParam("name") String name){
+        return facultyService.getByColorOrNameIgnoreCase(color, name);
+    }
+    @GetMapping("/by-student")
+    public Faculty findByStudent(@RequestParam() Long id){
+        return facultyService.findByStudentId(id);
     }
 }
