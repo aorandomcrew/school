@@ -1,11 +1,8 @@
 package ru.hogwarts.school.service;
-
-
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.DataNotFoundException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
-
 import java.util.Collection;
 
 

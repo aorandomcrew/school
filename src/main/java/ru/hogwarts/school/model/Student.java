@@ -13,7 +13,7 @@ public class Student {
     private Integer age;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
     public Student() {
