@@ -16,11 +16,6 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping("/filtered")
-    public Collection<Faculty> geByColor(@RequestParam("color") String color){
-        return facultyService.getByColor(color);
-    }
-
     @PostMapping()
     public Faculty create(@RequestBody Faculty faculty) {
         return facultyService.create(faculty);
@@ -41,12 +36,18 @@ public class FacultyController {
         return facultyService.delete(id);
     }
 
-    @GetMapping("/by_color_or_name")
-    public Collection<Faculty> getByColorOrName(@RequestParam("color") String color, @RequestParam("name") String name){
-        return facultyService.getByColorOrNameIgnoreCase(color, name);
+    @GetMapping("/filtered")
+    public Collection<Faculty> geByColor(@RequestParam("color") String color) {
+        return facultyService.getByColor(color);
     }
+
+    @GetMapping("/by_color_or_name")
+    public Collection<Faculty> getByColorOrName(@RequestParam("colorOrName") String colorOrName) {
+        return facultyService.getByColorOrNameIgnoreCase(colorOrName, colorOrName);
+    }
+
     @GetMapping("/by-student")
-    public Faculty findByStudent(@RequestParam() Long id){
+    public Faculty findByStudent(@RequestParam("studentId") Long id) {
         return facultyService.findByStudentId(id);
     }
 }
