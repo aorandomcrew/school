@@ -13,12 +13,6 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/filtered")
-    public Collection<Student> getByAge(@RequestParam("age") int age){
-        return studentService.getByAge(age);
-    }
-
-
     @PostMapping()
     public Student create(@RequestBody Student student) {
         return studentService.create(student);
@@ -39,13 +33,18 @@ public class StudentController {
         return studentService.delete(id);
     }
 
+    @GetMapping("/filtered")
+    public Collection<Student> getByAge(@RequestParam("age") int age){
+        return studentService.getByAge(age);
+    }
+
     @GetMapping("/find-by-age-between")
-    public Collection<Student> getByColorOrName(@RequestParam("min") int min, @RequestParam("max") int max) {
+    public Collection<Student> getByAgeBetween(@RequestParam("min") int min, @RequestParam("max") int max) {
         return studentService.findByAgeBetween(min, max);
     }
 
     @GetMapping("/by-faculty")
-    public Student findtByFaculty(@RequestParam() Long id){
+    public Student findtByFaculty(@RequestParam("facultyId") Long id){
         return studentService.findByFacultyId(id);
     }
 }
