@@ -1,8 +1,10 @@
 package ru.hogwarts.school.service;
+
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.DataNotFoundException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
+
 import java.util.Collection;
 
 
@@ -27,11 +29,11 @@ public class FacultyService {
 
     public Faculty update(Long id, Faculty faculty) {
         Faculty existingFaculty = facultyRepository.findById(id)
-                .orElseThrow(DataNotFoundException:: new);
-        if(faculty.getName()!=null){
+                .orElseThrow(DataNotFoundException::new);
+        if (faculty.getName() != null) {
             existingFaculty.setName(faculty.getName());
         }
-        if(faculty.getColor()!=null){
+        if (faculty.getColor() != null) {
             existingFaculty.setColor(faculty.getColor());
         }
         return facultyRepository.save(existingFaculty);
@@ -39,7 +41,7 @@ public class FacultyService {
 
     public Faculty delete(Long id) {
         Faculty existingFaculty = facultyRepository.findById(id)
-                .orElseThrow(DataNotFoundException:: new);
+                .orElseThrow(DataNotFoundException::new);
         facultyRepository.delete(existingFaculty);
         return existingFaculty;
     }
@@ -48,11 +50,11 @@ public class FacultyService {
         return facultyRepository.findAllByColor(color);
     }
 
-    public Collection<Faculty> getByColorOrNameIgnoreCase(String color, String name){
+    public Collection<Faculty> getByColorOrNameIgnoreCase(String color, String name) {
         return facultyRepository.findAllByColorOrNameIgnoreCase(color, name);
     }
 
-    public Faculty findByStudentId(Long id){
+    public Faculty findByStudentId(Long id) {
         return facultyRepository.findByStudent_Id(id).orElseThrow(DataNotFoundException::new);
     }
 }
