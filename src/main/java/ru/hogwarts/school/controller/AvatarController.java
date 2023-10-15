@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class AvatarController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Long> save(@RequestParam Long studentId, @RequestBody MultipartFile multipartFile){
+    public ResponseEntity<Long> save(@RequestParam Long studentId, @RequestBody MultipartFile multipartFile) {
         try {
             Long avatarId = avatarService.save(studentId, multipartFile);
             return ResponseEntity.ok(avatarId);
@@ -30,11 +31,12 @@ public class AvatarController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     @GetMapping(value = "/from-disk{id}", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void getFromDisk(@PathVariable("id") Long id, HttpServletResponse response){
+    public void getFromDisk(@PathVariable("id") Long id, HttpServletResponse response) {
         Avatar avatar = avatarService.getById(id);
         response.setContentType(avatar.getMediaType());
-        response.setContentLength((int)avatar.getFileSize());
+        response.setContentLength((int) avatar.getFileSize());
         try {
             FileInputStream fileInputStream = new FileInputStream(avatar.getFilePath());
             fileInputStream.transferTo(response.getOutputStream());
@@ -43,8 +45,9 @@ public class AvatarController {
             throw new RuntimeException(e);
         }
     }
+
     @GetMapping("/from-db{id}")
-    public ResponseEntity<byte[]> getFromDb(@PathVariable("id") Long id){
+    public ResponseEntity<byte[]> getFromDb(@PathVariable("id") Long id) {
         Avatar avatar = avatarService.getById(id);
         byte[] data = avatar.getData();
         HttpHeaders headers = new HttpHeaders();

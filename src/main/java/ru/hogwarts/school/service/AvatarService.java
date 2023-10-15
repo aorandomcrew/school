@@ -1,4 +1,5 @@
 package ru.hogwarts.school.service;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,11 +8,11 @@ import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.StudentRepository;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 
 
 @Service
@@ -25,16 +26,18 @@ public class AvatarService {
         this.avatarRepository = avatarRepository;
         this.studentRepository = studentRepository;
     }
-    public Avatar getById(Long id){
+
+    public Avatar getById(Long id) {
         return avatarRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
 
-    public Long save(Long studentId, MultipartFile multipartFile) throws IOException{
-        String fullPath = saveToDisk(studentId,multipartFile);
-        Avatar avatar = saveToDb(studentId,multipartFile,fullPath);
+    public Long save(Long studentId, MultipartFile multipartFile) throws IOException {
+        String fullPath = saveToDisk(studentId, multipartFile);
+        Avatar avatar = saveToDb(studentId, multipartFile, fullPath);
         return avatar.getId();
     }
+
     public String saveToDisk(Long studentId, MultipartFile multipartFile) throws IOException {
         //метод создаст папки, если их нет
         Files.createDirectories(pathToAvatars);
@@ -52,7 +55,8 @@ public class AvatarService {
         path.close();
         return fullPath;
     }
-    public Avatar saveToDb(Long studentId,MultipartFile multipartFile, String fullPath) throws IOException{
+
+    public Avatar saveToDb(Long studentId, MultipartFile multipartFile, String fullPath) throws IOException {
         Student studentReference = studentRepository.getReferenceById(studentId);
         Avatar avatar = avatarRepository.findByStudent(studentReference)
                 .orElse(new Avatar());

@@ -1,11 +1,12 @@
 package ru.hogwarts.school.service;
+
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.DataNotFoundException;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
+
 import java.util.Collection;
 import java.util.Optional;
-
 
 
 @Service
@@ -17,7 +18,7 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student create( Student student) {
+    public Student create(Student student) {
         return studentRepository.save(student);
     }
 
@@ -36,18 +37,20 @@ public class StudentService {
 
     public Student delete(Long id) {
         Student existStudent = studentRepository.findById(id)
-                .orElseThrow(DataNotFoundException:: new);
+                .orElseThrow(DataNotFoundException::new);
         studentRepository.delete(existStudent);
         return existStudent;
     }
+
     public Collection<Student> getByAge(int age) {
         return studentRepository.findAllByAge(age);
     }
 
-    public Collection<Student> findByAgeBetween(int min, int max){
-        return studentRepository.findAllByAgeBetween(min,max);
+    public Collection<Student> findByAgeBetween(int min, int max) {
+        return studentRepository.findAllByAgeBetween(min, max);
     }
-    public Student findByFacultyId(Long id){
+
+    public Student findByFacultyId(Long id) {
         return studentRepository.findAllByFaculty_Id(id).orElseThrow(DataNotFoundException::new);
     }
 
