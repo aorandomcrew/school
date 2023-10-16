@@ -1,9 +1,8 @@
 package ru.hogwarts.school.controller;
-
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.service.FacultyService;
 import ru.hogwarts.school.service.StudentService;
-
 import java.util.Collection;
 
 @RestController
@@ -16,7 +15,7 @@ public class StudentController {
     }
 
     @GetMapping("/filtered")
-    public Collection<Student> getByAge(@RequestParam("age") int age) {
+    public Collection<Student> getByAge(@RequestParam("age") int age){
         return studentService.getByAge(age);
     }
 
@@ -47,7 +46,7 @@ public class StudentController {
     }
 
     @GetMapping("/by-faculty")
-    public Student findByFaculty(@RequestParam("id") Long id) {
+    public Collection<Student> findByFaculty(@RequestParam("facultyId") Long id){
         return studentService.findByFacultyId(id);
     }
 }

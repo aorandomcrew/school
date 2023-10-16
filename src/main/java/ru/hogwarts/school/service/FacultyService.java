@@ -3,7 +3,9 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.DataNotFoundException;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
 
@@ -11,9 +13,11 @@ import java.util.Collection;
 @Service
 public class FacultyService {
     private final FacultyRepository facultyRepository;
+    private final StudentRepository studentRepository;
 
-    public FacultyService(FacultyRepository facultyRepository) {
+    public FacultyService(FacultyRepository facultyRepository, StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
+        this.studentRepository = studentRepository;
     }
 
 
@@ -50,11 +54,11 @@ public class FacultyService {
         return facultyRepository.findAllByColor(color);
     }
 
-    public Collection<Faculty> getByColorOrNameIgnoreCase(String color, String name) {
-        return facultyRepository.findAllByColorOrNameIgnoreCase(color, name);
+    public Collection<Faculty> getByColorOrNameIgnoreCase(String colorOrName) {
+        return facultyRepository.findAllByColorOrNameIgnoreCase(colorOrName);
     }
 
-    public Faculty findByStudentId(Long id) {
+    public Faculty findByStudentId(Long id){
         return facultyRepository.findByStudent_Id(id).orElseThrow(DataNotFoundException::new);
     }
 }

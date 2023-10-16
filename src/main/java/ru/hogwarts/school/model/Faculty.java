@@ -1,7 +1,5 @@
 package ru.hogwarts.school.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +20,7 @@ public class Faculty {
     List<Student> students;
 
 
-    public Faculty() {
+    public Faculty(){
 
     }
 
@@ -84,15 +82,5 @@ public class Faculty {
         result = 31 * result + (color != null ? color.hashCode() : 0);
         result = 31 * result + (students != null ? students.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Faculty{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", color='" + color + '\'' +
-                ", students=" + students +
-                '}';
     }
 }
